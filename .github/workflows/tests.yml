@@ -1,0 +1,22 @@
+name: "Test action"
+
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse Allure Results
+        id: allure_results
+        uses: ./
+        with:
+          allure_directory: test/allure-results
+      - name: Display Outputs
+        run: |
+          echo "Passed: ${{ steps.allure_results.outputs.passed }}"
+          echo "Failed: ${{ steps.allure_results.outputs.failed }}"
+          echo "Broken: ${{ steps.allure_results.outputs.broken }}"
+          echo "Skipped: ${{ steps.allure_results.outputs.skipped }}"
+          echo "Total: ${{ steps.allure_results.outputs.total }}"
+          echo "Duration: ${{ steps.allure_results.outputs.duration }}"

@@ -1,0 +1,32 @@
+name: "Allure Results Parser"
+description: "A GitHub Action to parse Allure results and provide test metrics"
+author: "Ruslan Galimov"
+
+inputs:
+  allure_directory:
+    description: "Path to the Allure JSON results directory"
+    required: true
+    default: "./allure-results"
+
+outputs:
+  passed:
+    description: "Number of passed tests"
+  failed:
+    description: "Number of failed tests"
+  broken:
+    description: "Number of broken tests"
+  skipped:
+    description: "Number of skipped tests"
+  total:
+    description: "Total number of tests"
+  duration:
+    description: "Total duration of the tests in human-readable format"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.allure_directory }}
+branding:
+  color: "blue"
+  icon: "check-circle"
